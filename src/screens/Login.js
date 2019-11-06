@@ -5,7 +5,8 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
-  AsyncStorage
+  AsyncStorage,
+  KeyboardAvoidingView
 } from "react-native";
 
 import styles from "../constants/styles";
@@ -14,6 +15,8 @@ import firebase from "firebase";
 
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import { Fumi } from "react-native-textinput-effects";
+
+import OnboardingLoog from "../commons/OnboardingLoog";
 
 export default class Login extends Component {
   static navigationOptions = {
@@ -28,14 +31,6 @@ export default class Login extends Component {
   handleChange = key => val => {
     this.setState({ [key]: val });
   };
-
-  //   componentWillMount() {
-  //     AsyncStorage.getItem("userPhone").then(val => {
-  //       if (val) {
-  //         this.setState({ phone: val });
-  //       }
-  //     });
-  //   }
 
   submitForm = async () => {
     if (this.state.phone.length < 10) {
@@ -56,55 +51,52 @@ export default class Login extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Fumi
-          style={styles.input}
-          label={"Phone Number"}
-          iconClass={FontAwesomeIcon}
-          iconName={"phone"}
-          iconColor={"#f95a25"}
-          iconSize={20}
-          iconWidth={40}
-          inputPadding={22}
-          onChangeText={this.handleChange("phone")}
-          value={this.state.phone}
-          keyboardType="number-pad"
-        />
-        <Fumi
-          style={styles.input}
-          label={"Name"}
-          iconClass={FontAwesomeIcon}
-          iconName={"user"}
-          iconColor={"#f95a25"}
-          iconSize={20}
-          iconWidth={40}
-          inputPadding={22}
-          onChangeText={this.handleChange("name")}
-          value={this.state.name}
-        />
-        {/* <TextInput
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+        <View style={styles.container}>
+          <OnboardingLoog />
+          <Fumi
+            style={styles.input}
+            label={"Phone Number"}
+            iconClass={FontAwesomeIcon}
+            iconName={"phone"}
+            iconColor={"#f95a25"}
+            iconSize={20}
+            iconWidth={40}
+            inputPadding={18}
+            onChangeText={this.handleChange("phone")}
+            value={this.state.phone}
+            keyboardType="number-pad"
+          />
+          <Fumi
+            style={styles.input}
+            label={"Name"}
+            iconClass={FontAwesomeIcon}
+            iconName={"user"}
+            iconColor={"#f95a25"}
+            iconSize={20}
+            iconWidth={40}
+            inputPadding={18}
+            onChangeText={this.handleChange("name")}
+            value={this.state.name}
+          />
+          {/* <TextInput
           value={this.state.phone}
           keyboardType="number-pad"
           placeholder="Phone number"
           style={styles.input}
           onChangeText={this.handleChange("phone")}
         /> */}
-        {/* <TextInput
+          {/* <TextInput
           value={this.state.name}
           placeholder="Name"
           style={styles.input}
           onChangeText={this.handleChange("name")}
         /> */}
-        <TouchableOpacity
-          style={{
-            backgroundColor: "#f95a25",
-            borderRadius: 50
-          }}
-          onPress={this.submitForm}
-        >
-          <Text style={styles.btnSubmit}>Enter</Text>
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity style={styles.btn} onPress={this.submitForm}>
+            <Text style={styles.btnSubmit}>Enter</Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
     );
   }
 }

@@ -4,7 +4,8 @@ import {
   Text,
   TouchableOpacity,
   FlatList,
-  Image
+  Image,
+  View
 } from "react-native";
 
 import User from "../config/User";
@@ -15,10 +16,13 @@ export default class Home extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: "Chats",
+      headerStyle: {
+        backgroundColor: "#f4511e"
+      },
       headerRight: (
         <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
           <Image
-            style={{ width: 32, height: 32, marginRight: 7 }}
+            style={{ width: 42, height: 42, marginRight: 7 }}
             source={require("../../assets/profile.png")}
           />
         </TouchableOpacity>
@@ -51,17 +55,34 @@ export default class Home extends Component {
     return (
       <TouchableOpacity
         onPress={() => this.props.navigation.navigate("Chat", item)}
-        style={{ padding: 10, borderBottomColor: "#ccc", borderBottomWidth: 1 }}
+        style={{
+          padding: 15,
+          borderColor: "#f4511e",
+          marginBottom: 3,
+          borderWidth: 1,
+          borderRadius: 25
+        }}
       >
-        <Text style={{ fontSize: 20 }}>{item.name}</Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <View>
+            <Text style={{ fontSize: 22 }}>{item.name}</Text>
+          </View>
+          <View>
+            <Image
+              style={{ width: 32, height: 32, marginRight: 7 }}
+              source={require("../../assets/profile.png")}
+            />
+          </View>
+        </View>
       </TouchableOpacity>
     );
   };
 
   render() {
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#fbe6db" }}>
         <FlatList
+          style={{ flex: 1, padding: 5 }}
           data={this.state.users}
           renderItem={this.renderRow}
           keyExtractor={item => item.phone}

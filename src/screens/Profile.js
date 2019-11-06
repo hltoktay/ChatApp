@@ -14,7 +14,10 @@ import firebase from "firebase";
 
 export default class Profile extends Component {
   static navigationOptions = {
-    title: "Profile"
+    title: "Profile",
+    headerStyle: {
+      backgroundColor: "#f4511e"
+    }
   };
 
   state = {
@@ -50,14 +53,20 @@ export default class Profile extends Component {
         <Text style={{ fontSize: 20 }}>{User.phone} </Text>
 
         <TextInput
-          style={styles.input}
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: 20,
+            marginBottom: 50
+          }}
           value={this.state.name}
           onChangeText={this.handleChange("name")}
         />
-        <TouchableOpacity onPress={this.changeName}>
+
+        <TouchableOpacity style={styles.btn} onPress={this.changeName}>
           <Text style={styles.btnSubmit}>Change Name</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this._logOut}>
+        <TouchableOpacity style={styles.btn} onPress={this._logOut}>
           <Text style={styles.btnSubmit}>Logout</Text>
         </TouchableOpacity>
       </SafeAreaView>

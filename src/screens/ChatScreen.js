@@ -6,7 +6,8 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
-  Dimensions
+  Dimensions,
+  KeyboardAvoidingView
 } from "react-native";
 
 import styles from "../constants/styles";
@@ -16,7 +17,10 @@ import firebase from "firebase";
 export default class ChatScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: navigation.getParam("name", null)
+      title: navigation.getParam("name", null),
+      headerStyle: {
+        backgroundColor: "#f4511e"
+      }
     };
   };
 
@@ -117,7 +121,7 @@ export default class ChatScreen extends Component {
     return (
       <SafeAreaView>
         <FlatList
-          style={{ padding: 10, height: height * 0.6 }}
+          style={{ padding: 10, height: height * 0.8 }}
           data={this.state.messageList}
           renderItem={this.renderRow}
           keyExtractor={(item, index) => index.toString()}
@@ -125,13 +129,13 @@ export default class ChatScreen extends Component {
 
         <View
           style={{
-            flexDirection: "eow",
+            flexDirection: "row",
             alignItems: "center",
             marginHorizontal: 5
           }}
         >
           <TextInput
-            style={styles.input}
+            style={styles.inputMessage}
             value={this.state.textMessage}
             placeholder="Type message..."
             onChangeText={this.handleChange("textMessage")}
@@ -139,9 +143,17 @@ export default class ChatScreen extends Component {
 
           <TouchableOpacity
             onPress={this.sendMessage}
-            style={{ paddingBottom: 10, marginLeft: 5 }}
+            style={{
+              padding: 7,
+              marginLeft: 5,
+              backgroundColor: "#f95a25",
+              borderRadius: 25,
+              width: "18%",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
           >
-            <Text style={styles.btnSubmit}>Send</Text>
+            <Text style={styles.btnSend}>Send</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
